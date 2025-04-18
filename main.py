@@ -7,7 +7,7 @@ from aiogram import Bot, Dispatcher, html, F
 from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
 from aiogram.filters import CommandStart
-from aiogram.types import Message
+from aiogram.types import Message, KeyboardButton, ReplyKeyboardMarkup
 
 from config import TOKEN
 
@@ -16,7 +16,19 @@ dp = Dispatcher()
 
 @dp.message(CommandStart())
 async def command_start_handler(message: Message) -> None:
-    await message.answer(f"Hello, {html.bold(message.from_user.full_name)}!")
+    btn1 = KeyboardButton(text="salom")
+
+    keyboard = ReplyKeyboardMarkup(
+        keyboard=[
+            [btn1, btn1],
+            [btn1]
+        ],
+        resize_keyboard=True,
+        one_time_keyboard=True,
+        input_field_placeholder="Javohir mushukni yaxshi ko'radi"
+    )
+
+    await message.answer(f"Hello, {html.bold(message.from_user.full_name)}!", reply_markup=keyboard)
 
 
 
@@ -48,6 +60,6 @@ async def main() -> None:
     await dp.start_polling(bot)
 
 
-if __name__ == "main":
+if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO, stream=sys.stdout)
     asyncio.run(main())

@@ -1,1 +1,0 @@
-TOKEN = 'sizning bot tokeningiz'
