@@ -16,13 +16,22 @@ dp = Dispatcher()
 
 @dp.message(CommandStart())
 async def command_start_handler(message: Message) -> None:
-    btn1 = KeyboardButton(text="salom")
+    with open("users.json", "r") as file:
+        users = json.load(file)
+
+    buttons = []
+    matrix = []
+
+    for i in range(1, 15):
+        buttons.append(KeyboardButton(text=f"{i}"))
+
+    for i in range(1, 100):
+        new_btn = buttons[::]
+        new_btn[0] = KeyboardButton(text=f"{i}")
+        matrix.append(new_btn)
 
     keyboard = ReplyKeyboardMarkup(
-        keyboard=[
-            [btn1, btn1],
-            [btn1]
-        ],
+        keyboard= matrix,
         resize_keyboard=True,
         one_time_keyboard=True,
         input_field_placeholder="Javohir mushukni yaxshi ko'radi"
